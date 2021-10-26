@@ -7,46 +7,30 @@
                     <div class="form-tab">
                         <ul class="nav nav-pills nav-fill" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link" href="/login" aria-selected="false">ورود</a>
+                                <a class="nav-link" href="/activeCode" aria-selected="false">فعال سازس اکانت</a>
                             </li>
                         </ul>
                         <div>
                             <div class="tab-pane">
-                                <form action="/auth/login" method="POST">
+                                <form action="/auth/sendCode" method="POST">
                                     <%- include("../includes/message") %>
                                         <%- include("../includes/loginError") %>
                                             <div class="form-group">
-                                                <label for="singin-email-2">آدرس ایمیل *</label>
+                                                <label for="singin-email-2">شماره تماس *</label>
                                                 <input type="text" class="form-control" id="singin-email-2"
-                                                    name="email">
+                                                    name="mobile">
                                             </div><!-- End .form-group -->
-
-                                            <div class="form-group">
-                                                <label for="singin-password-2">رمز عبور *</label>
-                                                <input type="password" class="form-control" id="singin-password-2"
-                                                    name="password">
-                                            </div><!-- End .form-group -->
-
                                             <div class="form-footer">
                                                 <button type="submit" class="btn btn-outline-primary-2">
-                                                    <span>ورود</span>
+                                                    <span>ارسال کد</span>
                                                     <i class="icon-long-arrow-left"></i>
                                                 </button>
-
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" name="remember"
-                                                        id="signin-remember-2">
-                                                    <label class="custom-control-label" for="signin-remember-2">مرا به
-                                                        خاطر
-                                                        بسپار</label>
-                                                </div><!-- End .custom-checkbox -->
-
                                             </div><!-- End .form-footer -->
                                             <div class="text-right">
-                                                <a href="/forgotPass" class="forgot-link">رمز عبور خود را فراموش کرده
-                                                    اید؟</a>
+                                                <a href="/register" class="forgot-link">اگر ثبت نام نکرده اید از اینجا
+                                                    اقدام
+                                                    کنید</a>
                                                 <br>
-                                                <a href="/activeCode" class="forgot-link">فعال سازی اکانت کاربری</a>
                                             </div>
                                 </form>
                             </div><!-- .End .tab-pane -->

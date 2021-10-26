@@ -1,0 +1,59 @@
+<main class="main">
+    <!-- !page header -->
+    <%- include("./pageHeader") %>
+        <!-- !page header -->
+
+        <!-- ! bread -->
+        <%- include("./bread") %>
+            <!-- ! bread -->
+
+            <div class="page-content">
+                <div class="dashboard">
+                    <div class="container">
+                        <div class="row">
+
+                            <!-- ! aside -->
+                            <%- include("./aside") %>
+                                <!-- ! aside -->
+
+                                <div class="col-md-8 col-lg-9">
+                                    <form action="/auth/editUser" method="POST">
+                                        <%- include("../includes/errors") %>
+                                            <%- include("../includes/message") %>
+                                                <div class="form-group">
+                                                    <label for="singin-email-2">نام کاربری *</label>
+                                                    <input type="text" class="form-control" id="singin-email-2"
+                                                        name="fullname" value="<%= user.fullname %>">
+                                                </div><!-- End .form-group -->
+
+                                                <div class="form-group">
+                                                    <label for="singin-email-2">شماره تماس شما *</label>
+                                                    <input type="text" class="form-control" id="singin-email-2"
+                                                        name="mobile" value="<%= user.mobile %>">
+                                                </div><!-- End .form-group -->
+
+                                                <div class="form-group">
+                                                    <label for="register-email-2">آدرس ایمیل شما *</label>
+                                                    <input type="email" class="form-control" id="register-email-2"
+                                                        name="email" value="<%= user.email %>">
+                                                </div><!-- End .form-group -->
+
+                                                <div class="form-group">
+                                                    <label for="register-email-2">آدرس *</label>
+                                                    <input type="" class="form-control" id="register-email-2"
+                                                        name="address" value="<%= user.address %>">
+                                                </div><!-- End .form-group -->
+
+                                                <div class="form-footer">
+                                                    <button type="submit" class="btn btn-outline-primary-2">
+                                                        <span>ویرایش</span>
+                                                        <i class="icon-long-arrow-left"></i>
+                                                    </button>
+                                                </div><!-- End .form-footer -->
+                                    </form>
+                                </div><!-- End .col-lg-9 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .container -->
+                </div><!-- End .dashboard -->
+            </div><!-- End .page-content -->
+</main><!-- End .main -->

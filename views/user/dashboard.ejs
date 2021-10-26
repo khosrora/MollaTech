@@ -1,0 +1,65 @@
+<main class="main">
+    <!-- !page header -->
+    <%- include("./pageHeader") %>
+        <!-- !page header -->
+
+        <!-- ! bread -->
+        <%- include("./bread") %>
+            <!-- ! bread -->
+
+            <div class="page-content">
+                <div class="dashboard">
+                    <div class="container">
+                        <div class="row">
+
+                            <!-- ! aside -->
+                            <%- include("./aside") %>
+                                <!-- ! aside -->
+
+                                <div class="col-md-8 col-lg-9">
+                                    <%- include("../includes/message") %>
+                                    <div>
+                                        <div class="">
+                                            <p>سلام <span class="font-weight-normal text-dark">
+                                                    <%= user.fullname %>
+                                                </span>
+                                                <br>
+                                                شما در اینجا میتوانید <a href="#tab-orders"
+                                                    class="tab-trigger-link link-underline">سفارشات خود را ببینید</a>،
+                                                وضعیت
+                                                ارسال <a href="#tab-address" class="tab-trigger-link">سفارشات خود را
+                                                    مشاهده
+                                                    کنید وآدرس خود را تغییر دهید</a>، و همچنین <a href="#tab-account"
+                                                    class="tab-trigger-link">می توانید رمز عبور یا جزئیات حساب کاربری
+                                                    خود را
+                                                    ویرایش کنید </a>.
+                                            </p>
+                                            <p>اطلاعات ثبت شده شما : </p>
+                                            <br>
+                                            <p>نام کاربری شما : <span>
+                                                    <%= user.fullname %>
+                                                </span></p>
+                                            <p>پست الکترونیک : <span>
+                                                    <%= user.email %>
+                                                </span></p>
+                                            <p>شماره همراه : <span>
+                                                    <%= user.mobile %>
+                                                </span></p>
+                                            <% if (user.address){%>
+                                                <p>آدرس : <span>
+                                                        <%= user.address %>
+                                                    </span></p>
+                                                <%}else {%>
+                                                    <p>
+                                                        <a href="#tab-orders" class="tab-trigger-link link-underline">
+                                                            لطفا قبل از ارسال سفارش آدرس خود را ثبت کنید
+                                                        </a>
+                                                        <%}%>
+                                        </div><!-- .End .tab-pane -->
+                                    </div>
+                                </div><!-- End .col-lg-9 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .container -->
+                </div><!-- End .dashboard -->
+            </div><!-- End .page-content -->
+</main><!-- End .main -->

@@ -14,12 +14,17 @@ passport.use(
                     message: "شما ثبت نام نکرده اید",
                 });
             }
+            if (user.isMobileActive === false) {
+                return done(null, false, {
+                    message: "لطفا اکانت خود را فعال کنید"
+                });
+            }
             const isMatch = await bcrypt.compare(password, user.password);
             if (isMatch) {
                 return done(null, user); //req.user
             } else {
                 return done(null, false, {
-                    message: "شماره همراه یا کلمه عبور صحیح نمی باشد"
+                    message: " پست الکترونیک یا کلمه عبور صحیح نمی باشد"
                 });
             }
         } catch (err) {
