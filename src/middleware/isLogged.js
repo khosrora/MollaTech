@@ -11,6 +11,11 @@ exports.isLogged = (req, res, next) => {
 exports.auth = (req, res, next) => {
     if (req.user) {
         auth = true;
+        if (req.user.isAdmin == "Admin") {
+            admin = true
+        } else {
+            admin = false
+        }
         next();
     } else {
         auth = false;

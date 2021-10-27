@@ -59,9 +59,12 @@ app.use(express.static(path.join(__dirname, "public")))
 
 
 // * router 
-app.use("/", require('./src/components/public/publicRouter'))
-app.use("/auth", require('./src/components/user/userRouter'))
+app.use("/", require('./src/components/public/publicRouter'));
+app.use("/auth", require('./src/components/user/userRouter'));
 
+// *admin router
+app.use("/admin", require('./src/components/admin/public/adminRouter'));
+app.use("/admin", require('./src/components/admin/categories/categoriesRouter'));
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

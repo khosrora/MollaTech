@@ -51,7 +51,11 @@
                     <% if(auth){%>
                         <div class="header-left">
                             <div class="header-dropdown">
-                                <a href="/auth/dashboard">پنل کاربری</a>
+                                <% if(admin){%>
+                                    <a href="/admin/dashboard">پنل مدیریت</a>
+                                    <%}else{%>
+                                        <a href="/auth/dashboard">پنل کاربری</a>
+                                        <%}%>
                             </div><!-- End .header-dropdown -->
                         </div><!-- End .header-left -->
                         <%}else {%>
@@ -77,13 +81,15 @@
                                                 <li><a href="/contactUs">تماس با ما</a></li>
                                                 <% if(auth){%>
                                                     <li>
-                                                        <a href="/auth/dashboard"><i class="icon-user"></i>پنل
-                                                            کاربری</a>
+                                                        <% if(admin){%>
+                                                            <a href="/admin/dashboard">پنل مدیریت</a>
+                                                            <%}else{%>
+                                                                <a href="/auth/dashboard">پنل کاربری</a>
+                                                                <%}%>
                                                     </li>
                                                     <%}else{%>
                                                         <li>
-                                                            <a href="/auth/login"><i class="icon-user"></i>پنل
-                                                                کاربری</a>
+                                                            <a href="/login"><i class="icon-user"></i>ورود</a>
                                                         </li>
                                                         <%}%>
                                             </ul>
@@ -112,68 +118,71 @@
                                     <a href="#" class="sf-with-ul">صفحات </a>
 
                                     <ul>
-                                        <li>
-                                            <a href="/aboutUs" class="sf-with-ul">درباره ما</a>
-
-                                            <ul>
-                                                <li><a href="/aboutUs">درباره ما 01</a></li>
-                                                <li><a href="/aboutUs">درباره ما 02</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="/contactUs" class="sf-with-ul">تماس با ما</a>
-
-                                            <ul>
-                                                <li><a href="/contactUs">تماس با ما 01</a></li>
-                                                <li><a href="/contactUs">تماس با ما 02</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="/auth/dashboard">پنل کاربری</a></li>
                                         <li><a href="faq.html">سوالات متداول</a></li>
-                                        <li><a href="404.html">خطای 404</a></li>
-                                        <li><a href="coming-soon.html">به زودی</a></li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="blog.html" class="sf-with-ul">اخبار</a>
+                                    <a href="product.html" class="sf-with-ul">محصول</a>
+
+                                    <div class="megamenu megamenu-sm">
+                                        <div class="row no-gutters">
+                                            <div class="col-md-6">
+                                                <div class="menu-col">
+                                                    <div class="menu-title"> برندهای موجود </div>
+                                                    <!-- End .menu-title -->
+                                                    <ul>
+                                                        <% for( category of categories ){%>
+                                                            <%if(category.category===null){%>
+                                                                <li><a href="product.html">
+                                                                        <%= category.name %>
+                                                                    </a></li>
+                                                                <%}%>
+                                                                    <%}%>
+                                                    </ul>
+                                                </div><!-- End .menu-col -->
+                                            </div><!-- End .col-md-6 -->
+
+                                            <div class="col-md-6">
+                                                <div class="banner banner-overlay">
+                                                    <a href="category.html">
+                                                        <img src="/images/menu/banner-2.jpg" alt="Banner">
+
+                                                        <div class="banner-content banner-content-bottom">
+                                                            <div class="banner-title text-white">محصولات
+                                                                جدید<br><span><strong>بهار 1399</strong></span>
+                                                            </div><!-- End .banner-title -->
+                                                        </div><!-- End .banner-content -->
+                                                    </a>
+                                                </div><!-- End .banner -->
+                                            </div><!-- End .col-md-6 -->
+                                        </div><!-- End .row -->
+                                    </div><!-- End .megamenu megamenu-sm -->
+                                </li>
+                                <li>
+                                    <a href="#" class="sf-with-ul">فهرست دسته بندی ها</a>
 
                                     <ul>
-                                        <li><a href="blog.html">کلاسیک</a></li>
-                                        <li><a href="blog-listing.html">لیست</a></li>
-                                        <li>
-                                            <a href="#">شبکه بندی</a>
-                                            <ul>
-                                                <li><a href="blog-grid-2cols.html">2 ستونه</a></li>
-                                                <li><a href="blog-grid-3cols.html">3 ستونه</a></li>
-                                                <li><a href="blog-grid-4cols.html">4 ستونه</a></li>
-                                                <li><a href="blog-grid-sidebar.html">با سایدبار</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">سایز های مختلف</a>
-                                            <ul>
-                                                <li><a href="blog-masonry-2cols.html">2 ستونه</a></li>
-                                                <li><a href="blog-masonry-3cols.html">3 ستونه</a></li>
-                                                <li><a href="blog-masonry-4cols.html">4 ستونه</a></li>
-                                                <li><a href="blog-masonry-sidebar.html">با سایدبار</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">ماسک</a>
-                                            <ul>
-                                                <li><a href="blog-mask-grid.html">نوع 1</a></li>
-                                                <li><a href="blog-mask-masonry.html">نوع 2</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">پست تکی</a>
-                                            <ul>
-                                                <li><a href="single.html">پیش فرض با سایدبار</a></li>
-                                                <li><a href="single-fullwidth.html">تمام صفحه بدون سایدبار</a></li>
-                                                <li><a href="single-fullwidth-sidebar.html">تمام صفحه باسایدبار</a></li>
-                                            </ul>
-                                        </li>
+                                        <% for( category of categories ){%>
+                                            <%if(category.category===null){%>
+                                                <li>
+                                                    <a href="#">
+                                                        <%= category.name %>
+                                                    </a>
+                                                    <ul>
+                                                        <% for (items of categories) {%>
+                                                            <% if(items.category !==null &&
+                                                                items.category==category.id){%>
+                                                                <li><a href="blog-grid-2cols.html">
+                                                                        <%= items.name %>
+                                                                    </a></li>
+                                                                <%}%>
+                                                                    <%}%>
+                                                    </ul>
+                                                </li>
+                                                <%}%>
+                                                    <%}%>
                                     </ul>
+
                                 </li>
                             </ul><!-- End .menu -->
                         </nav><!-- End .main-nav -->
@@ -322,69 +331,33 @@
                         <li>
                             <a href="#">صفحات</a>
                             <ul>
-                                <li>
-                                    <a href="about.html" class="sf-with-ul">درباره ما</a>
-
-                                    <ul style="display: none;">
-                                        <li><a href="about.html">درباره ما 01</a></li>
-                                        <li><a href="about-2.html">درباره ما 02</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="contact.html" class="sf-with-ul">تماس با ما</a>
-
-                                    <ul style="display: none;">
-                                        <li><a href="contact.html">تماس با ما 01</a></li>
-                                        <li><a href="contact-2.html">تماس با ما 02</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="/auth/dashboard">پنل کاربری</a></li>
                                 <li><a href="faq.html">سوالات متداول</a></li>
-                                <li><a href="404.html">خطای 404</a></li>
-                                <li><a href="coming-soon.html">به زودی</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="blog.html">اخبار</a>
+                            <a href="blog.html" class="sf-with-ul">فهرست دسته بندی ها</a>
 
                             <ul>
-                                <li class=""><a href="blog.html">کلاسیک</a></li>
-                                <li><a href="blog-listing.html">لیست</a></li>
-                                <li>
-                                    <a href="#" class="sf-with-ul">شبکه بندی</a>
-                                    <ul style="display: none;">
-                                        <li><a href="blog-grid-2cols.html">2 ستونه</a></li>
-                                        <li><a href="blog-grid-3cols.html">3 ستونه</a></li>
-                                        <li><a href="blog-grid-4cols.html">4 ستونه</a></li>
-                                        <li><a href="blog-grid-sidebar.html">با سایدبار</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#" class="sf-with-ul">سایز های مختلف</a>
-                                    <ul style="display: none;">
-                                        <li><a href="blog-masonry-2cols.html">2 ستونه</a></li>
-                                        <li><a href="blog-masonry-3cols.html">3 ستونه</a></li>
-                                        <li><a href="blog-masonry-4cols.html">4 ستونه</a></li>
-                                        <li><a href="blog-masonry-sidebar.html">با سایدبار</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#" class="sf-with-ul">ماسک</a>
-                                    <ul style="display: none;">
-                                        <li><a href="blog-mask-grid.html">نوع 1</a></li>
-                                        <li><a href="blog-mask-masonry.html">نوع 2</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#" class="sf-with-ul">پست تکی</a>
-                                    <ul style="display: none;">
-                                        <li><a href="single.html">پیش فرض با سایدبار</a></li>
-                                        <li><a href="single-fullwidth.html">تمام صفحه بدون سایدبار</a></li>
-                                        <li><a href="single-fullwidth-sidebar.html">تمام صفحه باسایدبار</a>
+                                <% for( category of categories ){%>
+                                    <%if(category.category===null){%>
+                                        <li>
+                                            <a href="#">
+                                                <%= category.name %>
+                                            </a>
+                                            <ul>
+                                                <% for (items of categories) {%>
+                                                    <% if(items.category !==null && items.category==category.id){%>
+                                                        <li><a href="blog-grid-2cols.html">
+                                                                <%= items.name %>
+                                                            </a></li>
+                                                        <%}%>
+                                                            <%}%>
+                                            </ul>
                                         </li>
-                                    </ul>
-                                </li>
+                                        <%}%>
+                                            <%}%>
                             </ul>
+
                         </li>
                     </ul>
                 </nav><!-- End .mobile-nav -->
@@ -464,7 +437,19 @@
                                 <h4 class="widget-title">حساب کاربری</h4><!-- End .widget-title -->
 
                                 <ul class="widget-list">
-                                    <li><a href="/auth/dashboard">پنل کاربری</a></li>
+                                    <li>
+                                        <% if(auth){%>
+                                            <div class="header-left">
+                                                <div class="header-dropdown">
+                                                    <% if(admin){%>
+                                                        <a href="/admin/dashboard">پنل مدیریت</a>
+                                                        <%}else{%>
+                                                            <a href="/auth/dashboard">پنل کاربری</a>
+                                                            <%}%>
+                                                </div>
+                                            </div>
+                                            <%}%>
+                                    </li>
                                     <li><a href="cart.html">سبد خرید</a></li>
                                     <li><a href="#">لیست علاقه مندی ها</a></li>
                                     <li><a href="#">پیگیری سفارشات</a></li>

@@ -1,0 +1,42 @@
+<%- include("../bread") %>
+    <%- include("../aside") %>
+
+        <!-- form start -->
+        <div class="container">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <%= bread %>
+                    </h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form role="form" action="/admin/createCategory" method="POST">
+                    <%- include("../../includes/message") %>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">نام دسته بندی</label>
+                                <input type="" class="form-control" id="exampleInputEmail1"
+                                    placeholder="نام دسته بندی را وارد کنید" name="name">
+                                <%- include("../../includes/loginError") %>
+                            </div>
+                            <div class="form-group">
+                                <label>دسته بندی اصلی </label>
+                                <select class="form-control" name="parent">
+                                    <option></option>
+                                    <% for(let item of categoriesItem) {%>
+                                        <option value="<%= item._id %>">
+                                            <%= item.name %>
+                                        </option>
+                                        <%}%>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">ارسال</button>
+                        </div>
+                </form>
+            </div>
+        </div>

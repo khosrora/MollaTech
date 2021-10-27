@@ -6,7 +6,7 @@ const router = new Router();
 const publicController = require('./publicController');
 
 // ! middleware
-const { isLogged, auth } = require('../../middleware/isLogged');
+const { isLogged, auth  } = require('../../middleware/isLogged');
 
 // ? dec ==> render home page
 // ? path ==> /

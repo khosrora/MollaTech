@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 
 const User = require('./model/userModel');
+const Category = require('../admin/categories/model/categories');
+
 
 // * hellper
 const nanoId = require('../../helper/nanoId');
@@ -160,12 +162,15 @@ exports.login = async (req, res, next) => {
 // ? path ==> auth/dashboard
 exports.getDashboard = async (req, res) => {
     try {
+        // ! get categories
+        const categories = await Category.find();
         // ! get user
         const user = req.user;
 
         res.render("user/dashboard", {
             title: "داشبورد کاربر",
             bread: "داشبورد",
+            categories,
             message: req.flash("success_msg"),
             error: req.flash("error"),
             user
@@ -181,12 +186,15 @@ exports.getDashboard = async (req, res) => {
 // ? path ==> auth/editUser
 exports.getEditUser = async (req, res) => {
     try {
+        // ! get categories
+        const categories = await Category.find();
         // ! get user
         const user = req.user;
 
         res.render("user/editUser", {
             title: "ویرایش حساب کاربری",
             bread: "ویرایش حساب کاربری",
+            categories,
             message: req.flash("success_msg"),
             error: req.flash("error"),
             user
