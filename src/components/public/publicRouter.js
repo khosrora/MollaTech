@@ -20,6 +20,10 @@ router.get("/aboutus", auth, publicController.aboutUs)
 // ? path ==> /contact us
 router.get("/contactus", auth, publicController.contactUs)
 
+// ? dec ==> render faq page
+// ? path ==> /faq
+router.get("/faq", auth, publicController.faq)
+
 // ? dec ==> render register page
 // ? path ==> /register
 router.get("/register", isLogged, auth, publicController.register)

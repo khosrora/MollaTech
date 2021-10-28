@@ -1,0 +1,50 @@
+<%- include("../bread") %>
+    <%- include("../aside") %>
+
+        <!-- form start -->
+        <div class="container">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <%= bread %>
+                    </h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form role="form" action="/admin/createBlog" method="POST" enctype="multipart/form-data">
+                    <%- include("../../includes/message") %>
+                        <%- include("../../includes/loginError") %>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">عنوان</label>
+                                    <input type="" class="form-control" id="exampleInputEmail1"
+                                        placeholder="عنوان را وارد کنید" name="title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile">ارسال فایل</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" name="image" class="custom-file-input"
+                                                id="exampleInputFile" multiple>
+                                            <label class="custom-file-label" for="exampleInputFile">انتخاب فایل</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">توضیحات</label>
+                                    <textarea id="textarea" name="desc"></textarea>
+                                </div>
+                                <div class="form-group example example_typeahead">
+                                    <label for="exampleInputEmail1">تگ های بلاگ <span class="text-danger">(با دکمه enter تگ
+                                            ها را جدا کنید)</span></label>
+                                    <input type="text" data-role="tagsinput" id="myInput" name="tags"/>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">ساخت بلاگ</button>
+                            </div>
+                </form>
+            </div>
+        </div>

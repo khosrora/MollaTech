@@ -5,8 +5,8 @@ const { userValidation } = require('./userValidation');
 const userSchema = new Schema({
 
     fullname: { type: String, required: true },
-    email: { type: String, required: true },
-    mobile: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    mobile: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     isBloocked: { type: Boolean, default: false },
     isAdmin: { type: String, enum: ["User", "Admin", "Assistant"], default: "User" },
@@ -14,7 +14,8 @@ const userSchema = new Schema({
     isMobileActive: { type: Boolean, default: false },
     Newsletters: { type: Number, default: 0 },
     address: { type: String, required: false },
-    fav: [{ type: Schema.Types.ObjectId, ref: "Product" }]
+    fav: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+
 
 }, { timestamps: true });
 

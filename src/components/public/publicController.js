@@ -57,6 +57,23 @@ exports.contactUs = async (req, res) => {
     }
 }
 
+// ? dec ==> render faq page
+// ? path ==> /faq
+exports.faq = async (req, res) => {
+    try {
+        // ! get categories
+        const categories = await Category.find();
+        res.render("public/faq.ejs", {
+            title: "سوالات متداول",
+            bread: "سوالات متداول",
+            auth,
+            categories
+        })
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
 
 // ? dec ==> render register page
 // ? path ==> /register

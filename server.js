@@ -65,6 +65,7 @@ app.use("/auth", require('./src/components/user/userRouter'));
 // *admin router
 app.use("/admin", require('./src/components/admin/public/adminRouter'));
 app.use("/admin", require('./src/components/admin/categories/categoriesRouter'));
+app.use("/admin", require('./src/components/admin/blogs/blogRouter'));
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
