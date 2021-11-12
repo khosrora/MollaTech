@@ -6,7 +6,7 @@ const router = new Router();
 const publicController = require('./publicController');
 
 // ! middleware
-const { isLogged, auth  } = require('../../middleware/isLogged');
+const { isLogged, auth } = require('../../middleware/isLogged');
 
 // ? dec ==> render home page
 // ? path ==> /
@@ -23,6 +23,14 @@ router.get("/contactus", auth, publicController.contactUs)
 // ? dec ==> render faq page
 // ? path ==> /faq
 router.get("/faq", auth, publicController.faq)
+
+// ? dec ==> render blogs page
+// ? path ==> /blogs
+router.get("/blogs", auth, publicController.getBlogs)
+
+// ? dec ==> render blog page
+// ? path ==> /blog
+router.get("/blog/:slug", auth, publicController.getBlog)
 
 // ? dec ==> render register page
 // ? path ==> /register

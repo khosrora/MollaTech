@@ -3,6 +3,7 @@ const passport = require('passport');
 
 const User = require('./model/userModel');
 const Category = require('../admin/categories/model/categories');
+const Comment = require('./model/comment');
 
 
 // * hellper
@@ -248,6 +249,31 @@ exports.logout = async (req, res) => {
         req.logout();
         res.redirect("/")
     } catch (err) {
+        console.log(err.message);
+    }
+}
+
+// ? desc ==> create comment
+// ? path ==> auth/comment
+exports.comment = async (req, res) => {
+    const errors = [];
+    try {
+        // ! get items
+        const { name, email, text, id } = req.body;
+        // ! validate
+        await Comment.commentValidate(req.body);
+        // ! create comment
+        await Comment.create({
+            name, email, text, post: id
+        })
+        // ! req.flash 
+        req.flash("success_msg", "نظر شما با موفقیت ارسال شد");
+        const backUrl = req.header('Referer') || "/blogs";
+        res.redirect(backUrl)
+    } catch (err) {
+        errors.push({
+            message: err.message
+        })
         console.log(err.message);
     }
 }

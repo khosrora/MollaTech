@@ -39,8 +39,12 @@ router.post("/editUser", auth, userController.editUser)
 
 
 // ? desc ==> log out user
-// ? method ==> get 
+// ? path ==> auth/logout 
 router.get("/logout", auth, userController.logout)
+
+// ? desc ==> create comment
+// ? path ==> auth/comment
+router.post("/comment", auth, userController.comment)
 
 
 

@@ -13,7 +13,7 @@
                 <!-- form start -->
                 <form role="form" action="/admin/createBlog" method="POST" enctype="multipart/form-data">
                     <%- include("../../includes/message") %>
-                        <%- include("../../includes/loginError") %>
+                        <%- include("../../includes/errors") %>
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">عنوان</label>
@@ -26,18 +26,26 @@
                                         <div class="custom-file">
                                             <input type="file" name="image" class="custom-file-input"
                                                 id="exampleInputFile" multiple>
-                                            <label class="custom-file-label" for="exampleInputFile">انتخاب فایل</label>
+                                            <label class="custom-file-label" for="exampleInputFile">انتخاب
+                                                فایل</label>
                                         </div>
                                     </div>
+                                    <%- include("../../includes/loginError") %>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">توضیحات</label>
                                     <textarea id="textarea" name="desc"></textarea>
                                 </div>
-                                <div class="form-group example example_typeahead">
-                                    <label for="exampleInputEmail1">تگ های بلاگ <span class="text-danger">(با دکمه enter تگ
-                                            ها را جدا کنید)</span></label>
-                                    <input type="text" data-role="tagsinput" id="myInput" name="tags"/>
+                                <div class="form-group ">
+                                    <select class="form-control select2" multiple="multiple"
+                                        data-placeholder="یک استان انتخاب کنید" style="width: 100%;text-align: right"
+                                        name="tags">
+                                        <% for (item of categories) {%>
+                                            <option value="<%= item.name %>">
+                                                <%= item.name %>
+                                            </option>
+                                            <%}%>
+                                    </select>
                                 </div>
                             </div>
                             <!-- /.card-body -->

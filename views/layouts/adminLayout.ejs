@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="/admin/dist/css/bootstrap-rtl.min.css">
   <!-- template rtl version -->
   <link rel="stylesheet" href="/admin/dist/css/custom-style.css">
-  <link rel="stylesheet" href="/admin/dist/css/bootstrap-tagsinput.css">
+
 
 </head>
 
@@ -58,9 +58,6 @@
     <!-- /.navbar -->
 
 
-
-
-
     <%- body %>
 
   </div>
@@ -79,7 +76,6 @@
   </footer>
   </div>
   <!-- ./wrapper -->
-
   <!-- REQUIRED SCRIPTS -->
   <!-- jQuery -->
   <script src="/admin/plugins/jquery/jquery.min.js"></script>
@@ -87,9 +83,10 @@
   <script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="/admin/dist/js/adminlte.js"></script>
-  <script src="/admin/dist/js/bootstrap-tagsinput.js"></script>
   <script src="https://cdn.tiny.cloud/1/477ted5fajei23py1rd4hmltzytt8gpvbfng2pzincq86pw7/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
+
+
   <script>
     tinymce.init({
       selector: 'textarea',
@@ -100,15 +97,9 @@
       directionality: "rtl",
     });
   </script>
-  <script>
-    $('myInput').tagsinput({
-      typeahead: {
-        source: function (query) {
-          return $.getJSON('citynames.json');
-        }
-      }
-    });
-  </script>
+
+
+
 </body>
 
 </html>

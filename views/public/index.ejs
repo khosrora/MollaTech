@@ -2656,7 +2656,7 @@
         <div class="container top">
             <div class="blog-posts my-5">
                 <div class="container">
-                    <h2 class="title text-center">اخبار فروشگاه ما</h2><!-- End .title-lg text-center -->
+                    <h2 class="title text-center">وبلاگ فروشگاه ما</h2><!-- End .title-lg text-center -->
 
                     <div class="owl-carousel owl-simple carousel-with-shadow" data-toggle="owl" data-owl-options='{
                             "nav": false, 
@@ -2677,75 +2677,45 @@
                                 }
                             }
                         }'>
-                        <article class="entry entry-display">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="/images/demos/demo-3/blogs/blog7.jpg" alt="توضیحات عکس">
-                                </a>
-                            </figure><!-- End .entry-media -->
 
-                            <div class="entry-body text-center">
-                                <div class="entry-meta">
-                                    <a href="#">22 فروردین 1399</a>, 0 دیدگاه
-                                </div><!-- End .entry-meta -->
+                        <% for (item of blogs) {%>
+                            <article class="entry entry-grid">
+                                <figure class="entry-media">
+                                    <a href="/blog/<%= item.slug %>">
+                                        <img src="/uploads/images/blog/<%= item.image %>" alt="<%= item.title %>"
+                                            style="height: 300px; object-fit: cover !important;">
+                                    </a>
+                                </figure><!-- End .entry-media -->
 
-                                <h3 class="entry-title text-center">
-                                    <a href="single.html">لورم ایپسوم متن ساختگی</a>
-                                </h3><!-- End .entry-title -->
+                                <div class="entry-body">
+                                    <div class="entry-meta justify-content-start">
+                                        <a href="/blog/<%= item.slug %>">
+                                            <%= jalaliMoment(item.createdAt) %>
+                                        </a>
+                                        <span class="meta-separator">|</span>
+                                        <a href="/blog/<%= item.slug %>"><%= item.view %> بازدید</a>
+                                    </div><!-- End .entry-meta -->
 
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">ادامه خواندن</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
+                                    <h2 class="entry-title">
+                                        <a href="/blog/<%= item.slug %>">
+                                            <%= item.title %>
+                                        </a>
+                                    </h2><!-- End .entry-title -->
 
-                        <article class="entry entry-display">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="/images/demos/demo-3/blogs/blog8.jpg" alt="توضیحات عکس">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body text-center">
-                                <div class="entry-meta">
-                                    <a href="#">12 فروردین 1399</a>, 0 دیدگاه
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title text-center">
-                                    <a href="single.html">لورم ایپسوم متن ساختگی</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">ادامه خواندن</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-
-                        <article class="entry entry-display">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="/images/demos/demo-3/blogs/blog9.jpg" alt="توضیحات عکس">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body text-center">
-                                <div class="entry-meta">
-                                    <a href="#">10 فروردین 1399</a>, 2 دیدگاه
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title text-center">
-                                    <a href="single.html">لورم ایپسوم متن ساختگی</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">ادامه خواندن</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
+                                    <div class="entry-cats">
+                                        <%for(i of item.items){%>
+                                            <a href="/blog/<%= item.slug %>">
+                                                <%= i %>
+                                            </a>
+                                            <%}%>
+                                    </div><!-- End .entry-cats -->
+                                </div><!-- End .entry-body -->
+                            </article><!-- End .entry -->
+                            <%}%>
                     </div><!-- End .owl-carousel -->
 
                     <div class="more-container text-center mt-2">
-                        <a href="blog.html" class="btn btn-outline-darker btn-more"><span>مشاهده اخبار بیشتر</span><i
+                        <a href="/blogs" class="btn btn-outline-darker btn-more"><span>مشاهده بلاگ های بیشتر</span><i
                                 class="icon-long-arrow-left"></i></a>
                     </div><!-- End .more-container -->
                 </div><!-- End .container -->
@@ -2908,4 +2878,4 @@
 </div>
 </div>
 </div>
-</div> -->
+</div> 

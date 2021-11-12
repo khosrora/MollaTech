@@ -1,0 +1,46 @@
+<%- include("../bread") %>
+    <%- include("../aside") %>
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <%= title %>
+                    </h3>
+                    <%- include("../../includes/message") %>
+                        <form class="card-tools" action="/admin/getAllComments" method="get">
+                            <div class="input-group input-group-sm" style="width: 300px;">
+                                <input type="text" name="search" class="form-control float-right"
+                                    placeholder="نام ارسال کننده">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>نوشته</th>
+                            <th>پست الکترونیک</th>
+                            <th>عملیات</th>
+                        </tr>
+                        <% for (comment of comments) {%>
+                            <tr>
+                                <td>
+                                    <%= truncate( comment.text , 10) %>
+                                </td>
+                                <td>
+                                    <%= comment.email %>
+                                </td>
+                                <td><a href="/admin/deleteComment/<%= comment._id %>"
+                                        class="btn btn-sm btn-danger">حذف</a></td>
+                            </tr>
+                            <%}%>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
