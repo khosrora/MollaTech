@@ -10,11 +10,11 @@ const { auth } = require('../../middleware/isLogged');
 
 // ? dec ==> register user
 // ? path ==> auth/register
-router.post("/register", userController.register)
+router.post("/register", auth, userController.register)
 
 // ? dec ==> register user
 // ? path ==> auth/register
-router.post("/activeCode", userController.activeCode)
+router.post("/activeCode", auth, userController.activeCode)
 
 
 // ? dec ==> send active code
@@ -37,6 +37,14 @@ router.get("/editUser", auth, userController.getEditUser)
 // ? path ==> auth/editUser
 router.post("/editUser", auth, userController.editUser)
 
+// ? dec ==> get payments User
+// ? path ==> auth/paymentsUser
+router.get("/paymentsUser", auth, userController.paymentsUser)
+
+// ? dec ==> get payment User
+// ? path ==> auth/paymentUser/:code
+router.get("/paymentUser/:code", auth, userController.paymentUser)
+
 
 // ? desc ==> log out user
 // ? path ==> auth/logout 
@@ -46,6 +54,13 @@ router.get("/logout", auth, userController.logout)
 // ? path ==> auth/comment
 router.post("/comment", auth, userController.comment)
 
+// ? desc ==> check out user
+// ? path ==> auth/checkout
+router.get("/payment", auth, userController.payment);
+
+// ? desc ==> verify check out user
+// ? path ==> auth/verifyPayment
+router.get("/verifyPayment", auth, userController.verifyPayment);
 
 
 module.exports = router;

@@ -22,6 +22,9 @@
   <link rel="stylesheet" href="/admin/dist/css/custom-style.css">
 
 
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -83,10 +86,16 @@
   <script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="/admin/dist/js/adminlte.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="https://cdn.tiny.cloud/1/477ted5fajei23py1rd4hmltzytt8gpvbfng2pzincq86pw7/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
 
 
+  <script>
+    $(document).ready(function () {
+      $('.js-example-basic-multiple').select2();
+    });
+  </script>
   <script>
     tinymce.init({
       selector: 'textarea',

@@ -2,12 +2,20 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 
 const User = require('./model/userModel');
+const Cart = require('./model/cartModel');
+const Product = require('../admin/product/model/Product');
+const Attribute = require('../admin/product/model/attribute');
 const Category = require('../admin/categories/model/categories');
 const Comment = require('./model/comment');
 
 
+const ZarinpalCheckout = require('zarinpal-checkout');
+const zarinpal = ZarinpalCheckout.create('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', true);
+
+
 // * hellper
 const nanoId = require('../../helper/nanoId');
+const { separate } = require('../../helper/seperate');
 
 
 // ? dec ==> register user
@@ -15,6 +23,8 @@ const nanoId = require('../../helper/nanoId');
 exports.register = async (req, res) => {
     const errors = [];
     try {
+        // ! get categories
+        const categories = await Category.find();
         // ! get items
         const { fullname, email, password, mobile } = req.body;
         // ! validation
@@ -28,7 +38,10 @@ exports.register = async (req, res) => {
             })
             return res.render("public/register.ejs", {
                 title: "ورود کاربر",
+                bread: "ورود کاربر",
+                auth,
                 errors,
+                categories,
                 message: req.flash("success_msg")
             });
         }
@@ -52,7 +65,10 @@ exports.register = async (req, res) => {
         })
         res.render("public/register.ejs", {
             title: "ورود کاربر",
+            bread: "ورود کاربر",
+            auth,
             errors,
+            categories,
             message: req.flash("success_msg")
         })
     }
@@ -125,14 +141,18 @@ exports.sendCode = async (req, res) => {
 exports.login = async (req, res, next) => {
     const errors = [];
     try {
+        // ! get categories
+        const categories = await Category.find();
         // ! get items 
         const { email, password, remember } = req.body;
         if (!email || !password) {
             req.flash("error", "لطفا تمام مقادیر را کامل کنید");
             return res.render("public/login.ejs", {
                 title: "ورود کاربر",
+                bread: "ورود کاربر",
                 message: req.flash("success_msg"),
                 error: req.flash("error"),
+                categories
             })
         }
         // ! set session
@@ -153,6 +173,7 @@ exports.login = async (req, res, next) => {
         })
         res.render("public/login.ejs", {
             title: "ورود کاربر",
+            bread: "ورود کاربر",
             message: req.flash("success_msg"),
             error: req.flash("error"),
         })
@@ -240,6 +261,54 @@ exports.editUser = async (req, res) => {
     }
 }
 
+// ? dec ==> get payment User
+// ? path ==> auth/paymentUser
+exports.paymentsUser = async (req, res) => {
+    try {
+        // ! get categories
+        const categories = await Category.find();
+        // ! get user
+        const user = req.user;
+        const payments = await Cart.find({ user: user._id });
+
+        res.render("user/paymentsUser", {
+            title: "سفارشات",
+            bread: "سفارشات",
+            categories,
+            message: req.flash("success_msg"),
+            error: req.flash("error"),
+            payments,
+            user
+        })
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
+// ? dec ==> get payment User
+// ? path ==> auth/paymentUser
+exports.paymentUser = async (req, res) => {
+    try {
+        // ! get categories
+        const categories = await Category.find();
+        // ! get user
+        const user = req.user;
+        const payment = await Cart.findOne({ codePayment: req.params.code })
+
+        res.render("user/paymentUser", {
+            title: "سفارشات",
+            bread: "سفارشات",
+            categories,
+            message: req.flash("success_msg"),
+            error: req.flash("error"),
+            payment,
+            user,
+            separate
+        })
+    } catch (err) {
+        console.log(err.message)
+    }
+}
 
 // ? desc ==> log out user
 // ? method ==> get 
@@ -274,6 +343,101 @@ exports.comment = async (req, res) => {
         errors.push({
             message: err.message
         })
+        console.log(err.message);
+    }
+}
+
+// ? desc ==> check out user
+// ? path ==> auth/checkout
+exports.payment = async (req, res) => {
+    try {
+        // ! get items
+        const user = req.user;
+        const categories = await Category.find();
+        // ! validation
+        if (!user) {
+            req.flash("error", "لطفا برای پرداخت ابتدا وارد وب سایت شوید");
+            return res.redirect("/basket")
+        }
+        // ! validation
+        if (!user.address) {
+            req.flash("error", "لطفا برای پرداخت آدرس خود را از پنل کاربری وارد کنید");
+            return res.redirect("/basket")
+        }
+        //! Get a cookie
+        var cartItems = JSON.parse(req.cookies.cart__Molla);
+        // ! validation
+        if (cartItems.length === 0) {
+            req.flash("error", "حداقل یک محصول را در سبد خرید قرار دهید");
+            return res.redirect("/basket")
+        }
+        let totalCarts = 0;
+        let productId = [];
+        cartItems.forEach(async i => {
+            var totalItemCarts = i.price * i.quantity;
+            totalCarts += totalItemCarts++;
+            productId.push({
+                count: i.quantity,
+                color: i.color,
+                price: i.price,
+                image: i.image,
+                attribute: i.id
+            })
+        })
+        const cart = await Cart.create({
+            user: req.user._id,
+            products: productId,
+            priceProduct: totalCarts,
+            codePayment: nanoId(6)
+        })
+        zarinpal.PaymentRequest({
+            Amount: totalCarts + 30000, // In Tomans
+            CallbackURL: `${process.env.url}/auth/verifyPayment?q=${cart.codePayment}`,
+            Description: 'پرداخت به درگاه اینترنتی فروشگاه رابا',
+            Email: user.email,
+            Mobile: user.mobile
+        }).then(response => {
+            if (response.status === 100) {
+                res.redirect(response.url);
+            }
+        }).catch(err => {
+            console.error(err);
+            req.flash("error", "متاسفانه مشکلی از سمت درگاه پیش آمده است لطفا دوباره امتحان کنید");
+            return res.render("public/basket.ejs", {
+                title: "سبد خرید",
+                bread: "سبد خرید",
+                auth,
+                categories,
+                error: req.flash("error")
+            })
+        });
+
+    } catch (err) {
+        console.log(err.message);
+    }
+}
+
+// ? desc ==> check out user
+// ? path ==> auth/checkout
+exports.verifyPayment = async (req, res) => {
+    try {
+        // ! get query
+        const status = req.query.Status;
+
+        if (status === "OK") {
+            const cart = await Cart.findOne({ codePayment: req.query.q });
+            cart.isSuccess = true;
+            await cart.save();
+            //! Clearing the cookie
+            res.clearCookie("cart___items");
+            // ! send message
+            req.flash("success_msg", "سفارش شما با موفقیت ثبت شد")
+            res.redirect("/auth/dashboard");
+        } else {
+            req.flash("error", "متاسفانه عملیات پرداخت با شکست مواجه شد");
+            res.redirect("/basket")
+        }
+    } catch (err) {
         console.log(err.message);
     }
 }

@@ -1,0 +1,69 @@
+<%- include("../bread") %>
+    <%- include("../aside") %>
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <%= title %>
+                    </h3>
+                    <%- include("../../includes/message") %>
+                        <form class="card-tools" action="/admin/allOrders" method="get">
+                            <div class="input-group input-group-sm" style="width: 300px;">
+                                <input type="text" name="search" class="form-control float-right"
+                                    placeholder="کد پرداخت">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover">
+                        <tr>
+                            <th></th>
+                            <th>پرداخت شده</th>
+                            <th>کد پرداخت</th>
+                            <th>مبلغ پرداختی</th>
+                            <th>وضعیت</th>
+                        </tr>
+                        <% for (let order of orders) {%>
+                            <tr>
+                                <td>
+                                    <a href="/admin/order/<%= order.codePayment %>">مشاهده</a>
+                                </td>
+                                <td>
+                                    <% if(order.isSuccess) {%>
+                                        <p class="badge badge-success">
+                                            پرداخت شده
+                                        </p>
+                                        <%}else {%>
+                                            <p class="badge badge-danger">
+                                                پرداخت نشده
+                                            </p>
+                                            <%}%>
+                                </td>
+                                <td>
+                                    <%= order.codePayment %>
+                                </td>
+                                <td>
+                                    <%= separate(order.priceProduct) %>
+                                        تومان
+                                </td>
+                                <td>
+                                    <% if (!order.isSend){%>
+                                        <a href="/admin/send/<%= order._id %>" class="badge badge-success">ارسال شد؟</a>
+                                        <%}else {%>
+                                            <a href="/admin/notSend/<%= order._id%>" class="badge badge-danger">ارسال
+                                                نشد؟</a>
+                                            <%}%>
+                                </td>
+                            </tr>
+                            <%}%>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>

@@ -1,0 +1,95 @@
+<%- include("../bread") %>
+    <%- include("../aside") %>
+
+        <!-- form start -->
+        <div class="container">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <%= bread %>
+                    </h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form role="form" action="/admin/createProduct" method="POST" enctype="multipart/form-data">
+                    <%- include("../../includes/message") %>
+                        <%- include("../../includes/errors") %>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="title">نام محصول</label>
+                                    <input type="" name="title" class="form-control" id="title"
+                                        placeholder="نام محصول را وارد کنید">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile">انتخاب عکس</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="image" name="image"
+                                                multiple>
+                                            <label class="custom-file-label" for="image">عکس های محصول را وارد
+                                                کنید</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>دسته بندی</label>
+                                            <select class="form-control" name="categories">
+                                                <% for (item of categories) {%>
+                                                    <% if (item.category){%>
+                                                        <option value="<%= item.name %>">
+                                                            <%= item.name %>
+                                                        </option>
+                                                        <%}%>
+                                                            <%}%>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>برند</label>
+                                            <select class="form-control select2" name="brand">
+                                                <% for (item of categories) {%>
+                                                    <% if (item.category===null){%>
+                                                        <option value="<%= item.name %>">
+                                                            <%= item.name %>
+                                                        </option>
+                                                        <%}%>
+                                                            <%}%>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>قیمت</label>
+                                            <input type="" name="price" class="form-control" id="title"
+                                                placeholder="قیمت محصول را وارد کنید">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">توضیحات</label>
+                                    <textarea id="textarea" name="desc"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">مشخصات فنی</label>
+                                    <textarea id="textarea" name="technical"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" name="offer">
+                                        محصول شگفت انگیز
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">ثبت محصول</button>
+                            </div>
+
+
+                </form>
+            </div>
+        </div>

@@ -1,0 +1,50 @@
+<%- include("../bread") %>
+  <%- include("../aside") %>
+
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <%- include("../../includes/message") %>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-hover">
+                    <tr>
+                      <th>محصول</th>
+                      <th>رنگ</th>
+                      <th>تعداد</th>
+                      <th>مبلغ</th>
+                    </tr>
+                    <% for (let item of order.products){%>
+                      <tr>
+                        <td>
+                          <img width="50" height="50" src="/uploads/images/products/<%= item.image %>" alt="">
+                        </td>
+                        <td>
+                          <%= item.count %>
+                        </td>
+                        <td>
+                          <div class="" style="background-color: <%= item.color %>; padding : .5rem ;"></div>
+                        </td>
+                        <td>
+                          <%= item.price %>
+                        </td>
+                      </tr>
+                      <%}%>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>

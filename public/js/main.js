@@ -820,3 +820,27 @@ $(document).ready(function () {
         }, 900)
     }
 });
+
+
+// change color && price
+function separate(Number) {
+    Number += '';
+    Number = Number.replace(',', '');
+    x = Number.split('.');
+    y = x[0];
+    z = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(y))
+        y = y.replace(rgx, '$1' + ',' + '$2');
+    return y + z;
+}
+function changePrice(price, id, color, discount, discountPrice) {
+    if (discount === "on") {
+        document.getElementById("priceTag").innerHTML = separate(discountPrice);
+    } else {
+        document.getElementById("priceTag").innerHTML = separate(price);
+    }
+    document.getElementById("product__id").value = id;
+    document.getElementById("attr__id").value = id;
+    document.getElementById("attr__color").value = color;
+}

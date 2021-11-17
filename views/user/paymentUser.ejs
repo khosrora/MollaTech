@@ -1,0 +1,64 @@
+<main class="main">
+    <!-- !page header -->
+    <%- include("./pageHeader") %>
+        <!-- !page header -->
+
+        <!-- ! bread -->
+        <%- include("./bread") %>
+            <!-- ! bread -->
+
+            <div class="page-content">
+                <div class="dashboard">
+                    <div class="container">
+                        <div class="row">
+
+                            <!-- ! aside -->
+                            <%- include("./aside") %>
+                                <!-- ! aside -->
+
+                                <div class="col-md-8 col-lg-9">
+                                    <%- include("../includes/message") %>
+
+
+                                        <table class="table table-cart table-mobile">
+                                            <thead>
+                                                <tr>
+                                                    <th>محصول</th>
+                                                    <th>تعداد</th>
+                                                    <th>قیمت</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <% for (let item of payment.products) {%>
+                                                    <tr>
+                                                        <td class="product-col">
+                                                            <div class="product">
+                                                                <figure class="product-media">
+                                                                    <a href="#">
+                                                                        <img src="/uploads/images/products/<%= item.image %>"
+                                                                            alt="تصویر محصول">
+                                                                    </a>
+                                                                </figure>
+                                                            </div><!-- End .product -->
+                                                        </td>
+                                                        <td class="quantity-col">
+                                                            <div class="cart-product-quantity">
+                                                                <%= item.count %>
+                                                            </div><!-- End .cart-product-quantity -->
+                                                        </td>
+                                                        <td class="total-col">
+                                                            <%= separate(item.price) %>
+                                                        </td>
+                                                    </tr>
+                                                    <%}%>
+                                            </tbody>
+                                        </table><!-- End .table table-wishlist -->
+
+
+                                </div><!-- End .col-lg-9 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .container -->
+                </div><!-- End .dashboard -->
+            </div><!-- End .page-content -->
+</main><!-- End .main -->

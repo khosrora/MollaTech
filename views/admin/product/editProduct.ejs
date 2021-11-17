@@ -1,0 +1,55 @@
+<%- include("../bread") %>
+    <%- include("../aside") %>
+
+        <!-- form start -->
+        <div class="container">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <%= bread %>
+                    </h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form role="form" action="/admin/editProduct" method="POST" >
+                    <%- include("../../includes/message") %>
+                        <%- include("../../includes/loginError") %>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <input type="hidden" value="<%= product._id %>" name="id">
+                                    <label for="title">نام محصول</label>
+                                    <input type="" name="title" class="form-control" id="title"
+                                        placeholder="نام محصول را وارد کنید" value="<%= product.title %>">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>قیمت</label>
+                                            <input type="" name="price" class="form-control" id="title"
+                                                placeholder="قیمت محصول را وارد کنید" value="<%= product.price %>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">توضیحات</label>
+                                    <textarea id="textarea" name="desc"><%= product.desc %></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">مشخصات فنی</label>
+                                    <textarea id="textarea" name="technical"><%= product.technical %></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" name="offer">
+                                        محصول شگفت انگیز
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">ثبت محصول</button>
+                            </div>
+                </form>
+            </div>
+        </div>

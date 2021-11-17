@@ -1,0 +1,70 @@
+<main class="main">
+    <!-- !page header -->
+    <%- include("./pageHeader") %>
+        <!-- !page header -->
+
+        <!-- ! bread -->
+        <%- include("./bread") %>
+            <!-- ! bread -->
+
+            <div class="page-content">
+                <div class="dashboard">
+                    <div class="container">
+                        <div class="row">
+
+                            <!-- ! aside -->
+                            <%- include("./aside") %>
+                                <!-- ! aside -->
+
+                                <div class="col-md-8 col-lg-9">
+                                    <%- include("../includes/message") %>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">کد پرداخت</th>
+                                                    <th scope="col">مبلغ پرداختی</th>
+                                                    <th scope="col">عملیات</th>
+                                                    <th scope="col">وضعیت</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% for (item of payments){%>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="/auth/paymentUser/<%= item.codePayment %>">
+                                                                مشاهده
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <%= item.codePayment %>
+                                                        </td>
+                                                        <td>
+                                                            <%= item.priceProduct %>
+                                                        </td>
+                                                        <td>
+                                                            <% if(item.isSuccess) {%>
+                                                                پرداخت شد
+                                                                <%}else {%>
+                                                                    پرداخت نشد
+                                                                    <%}%>
+                                                        </td>
+                                                        <td>
+                                                            <% if(item.isSend) {%>
+                                                                ارسال شد
+                                                                <%}else {%>
+                                                                    ارسال نشد
+                                                                    <%}%>
+                                                        </td>
+                                                    </tr>
+                                                    <%}%>
+                                            </tbody>
+                                        </table>
+
+                                </div><!-- End .col-lg-9 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .container -->
+                </div><!-- End .dashboard -->
+            </div><!-- End .page-content -->
+</main><!-- End .main -->

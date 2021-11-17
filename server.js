@@ -5,7 +5,7 @@ require('dotenv').config({
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const passport = require('passport');
-const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser')
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
@@ -18,7 +18,7 @@ require('./config/passport');
 const app = express();
 
 // ! cookie parser
-app.use(cookieParser());
+app.use(cookieParser())
 
 //!DATABASE
 const connectDB = require('./config/db');
@@ -67,6 +67,8 @@ app.use("/admin", require('./src/components/admin/public/adminRouter'));
 app.use("/admin", require('./src/components/admin/categories/categoriesRouter'));
 app.use("/admin", require('./src/components/admin/blogs/blogRouter'));
 app.use("/admin", require('./src/components/admin/comments/commentsRouter'));
+app.use("/admin", require('./src/components/admin/product/productRouter'));
+app.use("/admin", require('./src/components/admin/orders/ordersRouter'));
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

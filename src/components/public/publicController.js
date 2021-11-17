@@ -3,12 +3,15 @@ const bcrypt = require('bcrypt');
 
 const User = require('../user/model/userModel');
 const Category = require('../admin/categories/model/categories');
+const Product = require('../admin/product/model/Product');
+const Attribute = require('../admin/product/model/attribute');
 const Blog = require('../admin/blogs/model/blog');
 const Comment = require('../user/model/comment');
 
 // ! hellper
 const { truncate } = require('../../helper/truncate');
 const { jalaliMoment } = require('../../helper/jalali');
+const { separate } = require('../../helper/seperate');
 
 
 // ? dec ==> render home page
@@ -19,6 +22,7 @@ exports.index = async (req, res) => {
         const categories = await Category.find();
         // ! get blogs
         const blogs = await Blog.find().populate("user");
+
         return res.render("public/index.ejs", {
             title: "صفحه اصلی",
             auth,
@@ -328,6 +332,174 @@ exports.resetPassword = async (req, res) => {
             req.flash("error", "کد وارد شده اشتباه است")
             return res.redirect("/resetPass")
         }
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
+// ? dec ==>  products 
+// ? path ==> /products
+exports.getAllProducts = async (req, res) => {
+    try {
+        // ! get query
+        const q = req.query;
+        // ! get categories
+        const categories = await Category.find();
+        const products = await Product.find({ isActive: true }).sort({ createdAt: q.sortby });
+
+        return res.render("public/products.ejs", {
+            title: "محصولات",
+            bread: "محصولات",
+            auth,
+            categories,
+            products,
+            truncate,
+            separate,
+            jalaliMoment,
+        })
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
+
+// ? dec ==>  products 
+// ? path ==> /products with categories
+exports.getAllProductsCategories = async (req, res) => {
+    try {
+        // ! get query
+        const p = req.params.categories;
+        console.log(p)
+        // ! get categories
+        const categories = await Category.find();
+        const products = await Product.find({
+            $and: [
+                { categories: p },
+                { isActive: true }
+            ]
+        }).sort({ createdAt: -1 });
+
+        return res.render("public/products.ejs", {
+            title: "محصولات",
+            bread: "محصولات",
+            auth,
+            categories,
+            products,
+            truncate,
+            separate,
+            jalaliMoment,
+        })
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
+// ? dec ==>  products 
+// ? path ==> /products with categories
+exports.getAllProductsCategories = async (req, res) => {
+    try {
+        // ! get query
+        const p = req.params.categories;
+        // ! get categories
+        const categories = await Category.find();
+        const products = await Product.find({
+            $and: [
+                { categories: p },
+                { isActive: true }
+            ]
+        }).sort({ createdAt: -1 });
+
+        return res.render("public/products.ejs", {
+            title: "محصولات",
+            bread: "محصولات",
+            auth,
+            categories,
+            products,
+            truncate,
+            separate,
+            jalaliMoment,
+        })
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
+// ? dec ==>  products 
+// ? path ==> /products with categories
+exports.getAllProductsBrands = async (req, res) => {
+    try {
+        // ! get query
+        const p = req.params.brand;
+        // ! get categories
+        const categories = await Category.find();
+        const products = await Product.find({
+            $and: [
+                { brand: p },
+                { isActive: true }
+            ]
+        }).sort({ createdAt: -1 });
+
+        return res.render("public/products.ejs", {
+            title: "محصولات",
+            bread: "محصولات",
+            auth,
+            categories,
+            products,
+            truncate,
+            separate,
+            jalaliMoment,
+        })
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
+// ? dec ==> get single product 
+// ? path ==> /product/:slug
+exports.getProduct = async (req, res) => {
+    try {
+        // ! get categories
+        const categories = await Category.find();
+        // ! find product && attribute Product 
+        const product = await Product.findOne({ slug: req.params.slug });
+        const suggProducts = await Product.find({ brand: product.brand });
+        const attribute = await Attribute.find({ product: product._id });
+        product.view += 1;
+        await product.save();
+
+        return res.render("public/singleProduct.ejs", {
+            title: `${product.title}`,
+            bread: `${product.title}`,
+            auth,
+            categories,
+            product,
+            suggProducts,
+            attribute,
+            truncate,
+            separate,
+            jalaliMoment,
+        })
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
+
+
+// ? dec ==> basket page 
+// ? path ==> /basket
+exports.getBasket = async (req, res) => {
+    try {
+        // ! get categories
+        const categories = await Category.find();
+
+        return res.render("public/basket.ejs", {
+            title: "سبد خرید",
+            bread: "سبد خرید",
+            auth,
+            categories,
+            error: req.flash("error")
+        })
     } catch (err) {
         console.log(err.message)
     }

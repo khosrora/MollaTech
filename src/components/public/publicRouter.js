@@ -64,6 +64,26 @@ router.get("/resetPass", isLogged, auth, publicController.getResetPassword)
 // ? path ==> /resetPass
 router.post("/resetPass", isLogged, auth, publicController.resetPassword)
 
+// ? dec ==>  products 
+// ? path ==> /products
+router.get("/products", auth, publicController.getAllProducts)
+
+// ? dec ==>  products 
+// ? path ==> /products
+router.get("/productsCategory/:categories", auth, publicController.getAllProductsCategories)
+
+// ? dec ==>  products 
+// ? path ==> /products
+router.get("/productsBrand/:brand", auth, publicController.getAllProductsBrands)
+
+// ? dec ==> get single product 
+// ? path ==> /product/:slug
+router.get("/product/:slug", auth, publicController.getProduct)
+
+// ? dec ==> basket page 
+// ? path ==> /basket
+router.get("/basket", auth, publicController.getBasket)
+
 
 
 
