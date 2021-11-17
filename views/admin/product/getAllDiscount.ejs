@@ -1,0 +1,62 @@
+<%- include("../bread") %>
+    <%- include("../aside") %>
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <%= title %>
+                    </h3>
+                    <%- include("../../includes/message") %>
+                        <%- include("../../includes/loginError") %>
+                            <form class="card-tools" action="/admin/getAllDiscount" method="get">
+                                <div class="input-group input-group-sm" style="width: 300px;">
+                                    <input type="text" name="search" class="form-control float-right"
+                                        placeholder="نام تخفیف">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default"><i
+                                                class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                </div>
+                <div class="col-12 my-3 text-left">
+                    <a href="/admin/createDiscount" class="btn btn-secondary">ایجاد تخفیف جدید</a>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>نام</th>
+                            <th>ایجاد کننده تخفیف</th>
+                            <th>وضعیت</th>
+                            <th>درصد</th>
+                        </tr>
+                        <% for (let item of discounts) {%>
+                            <tr>
+                                <td>
+                                    <%= item.name %>
+                                </td>
+                                <td>
+                                    <%= item.user.fullname %>
+                                </td>
+                                <td>
+                                    <% if(item.isActive){%>
+                                        <a href="/admin/isActiveDiscount/<%= item._id %>"
+                                            class="btn btn-sm btn-success">فعال</a>
+                                        <%}else {%>
+                                            <a href="/admin/isActiveDiscount/<%= item._id %>"
+                                                class="btn btn-sm btn-danger">غیر فعال</a>
+                                            <%}%>
+                                </td>
+                                <td>
+                                    %<%= item.amount %>
+                                </td>
+                            </tr>
+                            <%}%>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>

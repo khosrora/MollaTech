@@ -1,5 +1,6 @@
 const Category = require('../categories/model/categories');
 const Product = require('./model/Product');
+const Discount = require('./model/discount');
 const Attribute = require('./model/attribute');
 
 
@@ -267,7 +268,7 @@ exports.getEditAttribute = async (req, res) => {
         const id = req.params.id
         const attr = await Attribute.findOne({ _id: id })
 
-       return res.render("admin/product/editAttribute", {
+        return res.render("admin/product/editAttribute", {
             layout: "./layouts/adminLayout",
             title: "ساخت ویژگی محصول ",
             bread: "ساخت ویژگی محصول",
@@ -320,5 +321,74 @@ exports.deleteAtrribute = async (req, res) => {
         return res.redirect(backUrl);
     } catch (err) {
         console.log(err.message);
+    }
+}
+
+// ? dec ==> get all discount
+// ? path ==> /admin/getAllDiscount
+exports.getAllDiscount = async (req, res) => {
+    try {
+
+        const query = req.query ? req.query.search : {};
+        // ! get categories 
+        if (query) {
+            var discounts = await Discount.find({ name: query }).populate("user");
+        } else {
+            var discounts = await Discount.find().populate("user");
+        }
+
+        return res.render("admin/product/getAllDiscount", {
+            layout: "./layouts/adminLayout",
+            title: "تخفیفات ",
+            bread: "تخفیفات",
+            discounts,
+            truncate,
+            message: req.flash("success_msg"),
+            error: req.flash("error"),
+        })
+    } catch (err) {
+        console.log(err.message);
+    }
+}
+
+// ? dec ==> get all discount
+// ? path ==> /admin/getAllDiscount
+exports.getCreateDiscount = async (req, res) => {
+    try {
+        res.render("admin/product/createDiscount", {
+            layout: "./layouts/adminLayout",
+            title: "ایجاد تخفیف ",
+            bread: "ایجاد تخفیف",
+            message: req.flash("success_msg"),
+            error: req.flash("error"),
+        })
+    } catch (err) {
+        console.log(err.message);
+    }
+}
+
+// ? dec ==> get all discount
+// ? path ==> /admin/getAllDiscount
+exports.createDiscount = async (req, res) => {
+    try {
+        // ! get items
+        const { name, amount } = req.body;
+        // ! validate
+        if (!name || !amount) {
+            req.flash("error", "لطفا تمام مقادیر را کامل کنید");
+            return res.redirect("/admin/createDiscount")
+        }
+        await Discount.create({
+            name, amount, user: req.user._id
+        })
+
+        // ! send message
+        req.flash("success_msg", "تخفیف با موفقیت  ثبت شد");
+        return res.redirect("/admin/getAllDiscount")
+
+    } catch (err) {
+        console.log(err.message);
+        req.flash("error", "لطفا  مقادیر را چک کنید");
+        return res.redirect("/admin/createDiscount")
     }
 }

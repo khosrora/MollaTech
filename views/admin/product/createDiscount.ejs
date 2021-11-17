@@ -1,0 +1,45 @@
+<%- include("../bread") %>
+    <%- include("../aside") %>
+
+        <!-- form start -->
+        <div class="container">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <%= bread %>
+                    </h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form role="form" action="/admin/createDiscount" method="POST">
+                    <%- include("../../includes/message") %>
+                        <%- include("../../includes/loginError") %>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label for="title">نام تخفیف</label>
+                                            <input type="" name="name" class="form-control" id="title"
+                                                placeholder="نام محصول را وارد کنید">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label>درصد تخفیف</label>
+                                            <p class="text-danger">عدد وارد شده به صورت درصد ثبت میشود</p>
+                                            <input type="" name="amount" class="form-control" id="title"
+                                                placeholder="مثال : 10">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">ایجاد تخفیف</button>
+                            </div>
+
+
+                </form>
+            </div>
+        </div>

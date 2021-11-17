@@ -1,50 +1,98 @@
 <%- include("../bread") %>
   <%- include("../aside") %>
 
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header">
-          <%- include("../../includes/message") %>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body table-responsive p-0">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <!-- /.card-header -->
-                <div class="card-body table-responsive p-0">
-                  <table class="table table-hover">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="callout callout-info">
+              <h5><i class="fa fa-info"></i> نکته :</h5>
+              از بخش ویژگی ها میتوانید ویژگی های محصول را اضافه کنید
+            </div>
+
+
+            <!-- Main content -->
+            <div class="invoice p-3 mb-3">
+              <!-- title row -->
+              <div class="row">
+                <div class="col-12">
+                  <h4>
+                    <i class="fa fa-globe"></i>
+                    <small class="float-left">ایجاد شده در تاریخ : <%= jalaliMoment(order.createdAt)%></small>
+                  </h4>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- info row -->
+              <div class="row invoice-info my-5">
+                <div class="col-sm-4 invoice-col">
+
+                  <address>
+                    <strong>
+                      سفارش ثبت شده توسط : <%= order.user.fullname %>
+                    </strong><br>
+                  </address>
+                  <address>
+                    <strong>
+                      آدرس سفارش دهنده: <%= order.user.address%>
+                    </strong><br>
+                  </address>
+                  <address>
+                </div>
+                <!-- /.col -->
+
+
+                <div class="col-sm-4 invoice-col">
+                  <address>
+                    <strong>
+                      شماره تماس سفارش دهنده: <%= order.user.mobile %>
+                    </strong><br>
+                  </address>
+                </div>
+                <!-- /.col -->
+
+              </div>
+              <!-- /.row -->
+
+              <!-- Table row -->
+              <div class="row">
+                <table class="table table-striped">
+                  <thead>
                     <tr>
-                      <th>محصول</th>
+                      <th>عکس</th>
                       <th>رنگ</th>
                       <th>تعداد</th>
-                      <th>مبلغ</th>
+                      <th>قیمت</th>
                     </tr>
-                    <% for (let item of order.products){%>
+                  </thead>
+                  <tbody>
+                    <% for (let item of order.products) {%>
                       <tr>
                         <td>
                           <img width="50" height="50" src="/uploads/images/products/<%= item.image %>" alt="">
                         </td>
                         <td>
-                          <%= item.count %>
+                          <div class="p-2" style="background-color: <%= item.color %>">
+                          </div>
                         </td>
                         <td>
-                          <div class="" style="background-color: <%= item.color %>; padding : .5rem ;"></div>
+                          <%= item.count %> عدد
                         </td>
                         <td>
-                          <%= item.price %>
+                          <%= separate(item.price) %>
+                          تومان
                         </td>
                       </tr>
                       <%}%>
-                  </table>
-                </div>
-                <!-- /.card-body -->
+                  </tbody>
+                </table>
               </div>
-              <!-- /.card -->
+              <!-- /.col -->
             </div>
+            <!-- /.row -->
           </div>
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
-    </div>
+          <!-- /.invoice -->
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>

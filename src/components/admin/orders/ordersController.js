@@ -5,6 +5,7 @@ const Attribute = require('../product/model/attribute');
 
 // ! hellper 
 const { separate } = require('../../../helper/seperate');
+const { jalaliMoment } = require('../../../helper/jalali');
 
 
 // ? dec ==>get all orders
@@ -18,6 +19,7 @@ exports.getAllOrders = async (req, res) => {
         } else {
             var orders = await Cart.find();
         }
+
         res.render("admin/orders/getAllOrders", {
             layout: "./layouts/adminLayout",
             title: "تمام سفارشات ",
@@ -94,13 +96,14 @@ exports.getNotSendOrders = async (req, res) => {
 exports.getOrder = async (req, res) => {
     try {
         // ! get order
-        const order = await Cart.findOne({ codePayment: req.params.code })
+        const order = await Cart.findOne({ codePayment: req.params.code }).populate("user");
         res.render("admin/orders/order", {
             layout: "./layouts/adminLayout",
             title: "تمام سفارشات ",
             bread: "تمام سفارشات",
             order,
             separate,
+            jalaliMoment,
             message: req.flash("success_msg"),
         })
 

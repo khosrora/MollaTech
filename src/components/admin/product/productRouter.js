@@ -55,6 +55,18 @@ router.post("/editAtrr", productController.editAttribute);
 // ? path ==> /admin/deleteAtrribute
 router.get("/delAtrr/:id", productController.deleteAtrribute);
 
+// ? dec ==> get all discount
+// ? path ==> /admin/getAllDiscount
+router.get("/getAllDiscount", productController.getAllDiscount);
+
+// ? dec ==> create Discount
+// ? path ==> /admin/createDiscount
+router.get("/createDiscount", productController.getCreateDiscount);
+
+// ? dec ==> create Discount
+// ? path ==> /admin/createDiscount
+router.post("/createDiscount", productController.createDiscount);
+
 
 
 
