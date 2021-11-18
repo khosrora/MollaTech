@@ -342,10 +342,21 @@ exports.resetPassword = async (req, res) => {
 exports.getAllProducts = async (req, res) => {
     try {
         // ! get query
-        const q = req.query;
+        const q = req.query.sortby;
+        const b = Object.keys(req.query);   
         // ! get categories
         const categories = await Category.find();
-        const products = await Product.find({ isActive: true }).sort({ createdAt: q.sortby });
+        if (b.length !== 0) {
+            var products = await Product.find({
+                $and: [
+                    { isActive: true },
+                    { brand: b }
+                ]
+            }).sort({ createdAt: q });
+        } else {
+            var products = await Product.find({ isActive: true }).sort({ createdAt: q });
+        }
+
 
         return res.render("public/products.ejs", {
             title: "محصولات",
@@ -363,48 +374,20 @@ exports.getAllProducts = async (req, res) => {
 }
 
 
-// ? dec ==>  products 
-// ? path ==> /products with categories
-exports.getAllProductsCategories = async (req, res) => {
-    try {
-        // ! get query
-        const p = req.params.categories;
-        console.log(p)
-        // ! get categories
-        const categories = await Category.find();
-        const products = await Product.find({
-            $and: [
-                { categories: p },
-                { isActive: true }
-            ]
-        }).sort({ createdAt: -1 });
-
-        return res.render("public/products.ejs", {
-            title: "محصولات",
-            bread: "محصولات",
-            auth,
-            categories,
-            products,
-            truncate,
-            separate,
-            jalaliMoment,
-        })
-    } catch (err) {
-        console.log(err.message)
-    }
-}
 
 // ? dec ==>  products 
 // ? path ==> /products with categories
 exports.getAllProductsCategories = async (req, res) => {
     try {
         // ! get query
-        const p = req.params.categories;
+        const c = req.params.categories;
+        const s = req.params.subCate;
         // ! get categories
         const categories = await Category.find();
         const products = await Product.find({
             $and: [
-                { categories: p },
+                { categories: c },
+                { brand: s },
                 { isActive: true }
             ]
         }).sort({ createdAt: -1 });

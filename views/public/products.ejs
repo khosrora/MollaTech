@@ -24,7 +24,7 @@
                                     <label for="sortby">مرتب سازی براساس : </label>
                                     <div class="select-custom">
                                         <select name="sortby" id="sortby" class="form-control"
-                                            onchange="this.form.submit()">
+                                            onchange="form.submit()">
                                             <option value="">مرتب سازی</option>
                                             <option value="-1">جدیدترین</option>
                                             <option value="1">قدیمی ترین</option>
@@ -55,9 +55,10 @@
                                                 </div><!-- End .product-action-vertical -->
 
                                                 <div class="product-action">
-                                                    <a href="/product/<%= item.slug %>" class="btn-product btn-cart"><span>
-                                                        مشاهده اطلاعات
-                                                    </span></a>
+                                                    <a href="/product/<%= item.slug %>"
+                                                        class="btn-product btn-cart"><span>
+                                                            مشاهده اطلاعات
+                                                        </span></a>
                                                 </div><!-- End .product-action -->
                                             </figure><!-- End .product-media -->
 
@@ -67,7 +68,8 @@
                                                         <%= item.brand %>
                                                     </a>
                                                 </div><!-- End .product-cat -->
-                                                <h3 class="product-title text-center"><a href="/product/<%= item.slug %>">
+                                                <h3 class="product-title text-center"><a
+                                                        href="/product/<%= item.slug %>">
                                                         <%= item.title %>
                                                     </a></h3><!-- End .product-title -->
                                                 <div class="product-price">
@@ -120,7 +122,7 @@
                         <div class="sidebar sidebar-shop">
                             <div class="widget widget-clean">
                                 <label>فیلترها </label>
-
+                                <a href="/products" class="sidebar-filter-clear">پاک کردن همه</a>
                             </div><!-- End .widget widget-clean -->
 
 
@@ -132,29 +134,32 @@
                                     </a>
                                 </h3><!-- End .widget-title -->
 
-                                <div class="collapse show" id="widget-4">
-                                    <div class="widget-body">
-                                        <div class="filter-items">
-                                            <% for (let category of categories){%>
-                                                <% if (category.category===null) {%>
-                                                    <div class="filter-item">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="<%= category.name %>" onchange="this.form.submit()"
-                                                                name="<%= category.name %>">
-                                                            <label class="custom-control-label"
-                                                                for="<%= category.name %>">
-                                                                <%= category.name %>
-                                                            </label>
-                                                        </div><!-- End .custom-checkbox -->
-                                                    </div>
-                                                    <%}%>
-                                                        <!-- End .filter-item -->
+                                <form action="">
+                                    <div class="collapse show" id="widget-4">
+                                        <div class="widget-body">
+                                            <div class="filter-items">
+                                                <% for (let category of categories){%>
+                                                    <% if (category.category===null) {%>
+                                                        <div class="filter-item">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input"
+                                                                    id="<%= category.name %>"
+                                                                    onchange="form.submit()"
+                                                                    name="<%= category.name %>">
+                                                                <label class="custom-control-label"
+                                                                    for="<%= category.name %>">
+                                                                    <%= category.name %>
+                                                                </label>
+                                                            </div><!-- End .custom-checkbox -->
+                                                        </div>
                                                         <%}%>
-                                        </div><!-- End .filter-items -->
-                                    </div><!-- End .widget-body -->
-                                </div><!-- End .collapse -->
+                                                            <!-- End .filter-item -->
+                                                            <%}%>
+                                            </div><!-- End .filter-items -->
+                                        </div><!-- End .widget-body -->
+                                    </div><!-- End .collapse -->
                             </div><!-- End .widget -->
+                            </form>
 
                         </div><!-- End .sidebar sidebar-shop -->
                     </aside><!-- End .col-lg-3 -->

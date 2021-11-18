@@ -70,7 +70,7 @@ router.get("/products", auth, publicController.getAllProducts)
 
 // ? dec ==>  products 
 // ? path ==> /products
-router.get("/productsCategory/:categories", auth, publicController.getAllProductsCategories)
+router.get("/productsCategory/:categories/:subCate", auth, publicController.getAllProductsCategories)
 
 // ? dec ==>  products 
 // ? path ==> /products

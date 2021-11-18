@@ -173,7 +173,8 @@
                                                         <% for (items of categories) {%>
                                                             <% if(items.category !==null &&
                                                                 items.category==category.id){%>
-                                                                <li><a href="/productsCategory/<%= items.name %>">
+                                                                <li><a
+                                                                        href="/productsCategory/<%= items.name %>/<%= category.name %>">
                                                                         <%= items.name %>
                                                                     </a></li>
                                                                 <%}%>
