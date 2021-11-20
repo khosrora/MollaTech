@@ -364,7 +364,7 @@ exports.payment = async (req, res) => {
             req.flash("error", "لطفا برای پرداخت آدرس خود را از پنل کاربری وارد کنید");
             return res.redirect("/basket")
         }
-        //! Get a cookie
+        //! Get a cookies
         var cartItems = JSON.parse(req.cookies.cart__Molla);
         // ! validation
         if (cartItems.length === 0) {

@@ -32,6 +32,11 @@
                                         placeholder="تعداد موجودی محصول را وارد کنید" value="<%= attr.count %>">
                                 </div>
                                 <div class="form-group">
+                                    <label>مدت تخفیف:</label>
+                                    <input type="" name="timeDiscount" class="form-control" id="title"
+                                        placeholder="مدت زمان تخفیف" value="<%= attr.timeDiscount %>">
+                                </div>
+                                <div class="form-group">
                                     <label>رنگ محصول:</label>
                                     <input type="color" name="color" value="<%= attr.color %>"">
                                 </div>
@@ -40,15 +45,17 @@
                                         <input type="checkbox" name="discount">
                                         تخفیف دارد ؟
                                     </label>
+                                    <br>
+                                    <label>
+                                        <input type="checkbox" name="discountSpecial">
+                                        تخفیف ویژه؟
+                                    </label>
                                 </div>
                             </div>
                             <!-- /.card-body -->
-
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">ویرایش ویژگی محصول</button>
                             </div>
-
-
                 </form>
             </div>
         </div>

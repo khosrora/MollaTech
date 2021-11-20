@@ -23,11 +23,23 @@ exports.index = async (req, res) => {
         // ! get blogs
         const blogs = await Blog.find().populate("user");
 
+        // ! get products
+        const products = await Product.find({ isActive: true }).sort({ view: -1 }).limit(8);
+        const attributes = await Attribute.find();
+        const attrSpecials = await Attribute.find({ discountSpecial: "on" }).limit(2);
+        const brands = await Category.find({ category: null }).limit(4);
+
+
         return res.render("public/index.ejs", {
             title: "صفحه اصلی",
             auth,
             categories,
             blogs,
+            products,
+            truncate,
+            brands,
+            attrSpecials,
+            attributes,
             jalaliMoment
         })
     } catch (err) {
@@ -343,7 +355,7 @@ exports.getAllProducts = async (req, res) => {
     try {
         // ! get query
         const q = req.query.sortby;
-        const b = Object.keys(req.query);   
+        const b = Object.keys(req.query);
         // ! get categories
         const categories = await Category.find();
         if (b.length !== 0) {
@@ -372,7 +384,6 @@ exports.getAllProducts = async (req, res) => {
         console.log(err.message)
     }
 }
-
 
 
 // ? dec ==>  products 
@@ -467,8 +478,6 @@ exports.getProduct = async (req, res) => {
     }
 }
 
-
-
 // ? dec ==> basket page 
 // ? path ==> /basket
 exports.getBasket = async (req, res) => {
@@ -482,6 +491,30 @@ exports.getBasket = async (req, res) => {
             auth,
             categories,
             error: req.flash("error")
+        })
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
+// ? dec ==> get all TimeDiscounts
+// ? path ==> /TimeDiscount
+exports.getTimeDiscount = async (req, res) => {
+    try {
+        
+        // ! get categories
+        const categories = await Category.find();
+        const attrSpecials = await Attribute.find({ discountSpecial: "on" });
+
+        return res.render("public/TimeDiscount.ejs", {
+            title: "محصولات",
+            bread: "محصولات",
+            auth,
+            categories,
+            attrSpecials,
+            truncate,
+            separate,
+            jalaliMoment,
         })
     } catch (err) {
         console.log(err.message)

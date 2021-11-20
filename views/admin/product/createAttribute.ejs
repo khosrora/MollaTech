@@ -11,15 +11,26 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" action="/admin/createAtrr" method="POST">
+                <form role="form" action="/admin/createAtrr" method="POST" enctype="multipart/form-data">
                     <%- include("../../includes/message") %>
                         <%- include("../../includes/errors") %>
                             <div class="card-body">
-                                <input type="hidden" value="<%= id %>" name="id">
+                                <input type="hidden" value="<%= product._id %>" name="id">
+                                <input type="hidden" value="<%= product.title %>" name="title">
                                 <div class="form-group">
                                     <label for="title">قیمت</label>
                                     <input type="" name="price" class="form-control" id="title"
                                         placeholder="قیمت محصول را وارد کنید">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile"> عکس تخفیف</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="image" name="image"
+                                                multiple>
+                                            <label class="custom-file-label" for="image">عکس تخفیف</label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="title">تخفیف</label>
@@ -32,6 +43,11 @@
                                         placeholder="تعداد موجودی محصول را وارد کنید">
                                 </div>
                                 <div class="form-group">
+                                    <label>مدت تخفیف:</label>
+                                    <input type="" name="timeDiscount" class="form-control" id="title"
+                                        placeholder="مدت زمان تخفیف">
+                                </div>
+                                <div class="form-group">
                                     <label>رنگ محصول:</label>
                                     <input type="color" id="head" name="color" value="">
                                 </div>
@@ -39,6 +55,11 @@
                                     <label>
                                         <input type="checkbox" name="discount">
                                         تخفیف دارد ؟
+                                    </label>
+                                    <br>
+                                    <label>
+                                        <input type="checkbox" name="discountSpecial">
+                                        تخفیف ویژه؟
                                     </label>
                                 </div>
                             </div>

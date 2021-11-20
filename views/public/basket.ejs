@@ -9,80 +9,81 @@
         </div><!-- End .container -->
     </div><!-- End .page-header -->
     <%- include("../includes/breadCrumb") %>
-    
-    <div class="page-content">
-        <div class="cart">
-            <div class="container">
+
+        <div class="page-content">
+            <div class="cart">
+                <div class="container">
                     <%- include("../includes/loginError") %>
-                    <div class="row">
-                        <div class="col-lg-9">
-                            <table class="table table-cart table-mobile">
-                                <thead>
-                                    <tr>
-                                        <th>محصول</th>
-                                        <th>رنگ</th>
-                                        <th>قیمت</th>
-                                        <th>تعداد</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-
-                                <tbody class="cart__items">
-
-                                </tbody>
-                            </table><!-- End .table table-wishlist -->
-
-                            <div class="cart-bottom">
-                                <div class="cart-discount">
-                                    <form action="#">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" required placeholder="کد تخفیف">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-primary-2" type="submit"><i
-                                                        class="icon-long-arrow-left"></i></button>
-                                            </div><!-- .End .input-group-append -->
-                                        </div><!-- End .input-group -->
-                                    </form>
-                                </div><!-- End .cart-discount -->
-
-                            </div><!-- End .cart-bottom -->
-                        </div><!-- End .col-lg-9 -->
-                        <aside class="col-lg-3">
-                            <div class="summary summary-cart">
-                                <table class="table table-summary">
-                                    <tbody>
-                                        <tr class="summary-subtotal">
-                                            <td>جمع کل سبد خرید : </td>
-                                            <td class="cart_amount"></td>
-                                        </tr><!-- End .summary-subtotal -->
-                                        <tr class="summary-shipping">
-                                            <td>شیوه ارسال : </td>
-                                            <td>&nbsp;</td>
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <table class="table table-cart table-mobile">
+                                    <thead>
+                                        <tr>
+                                            <th>محصول</th>
+                                            <th>رنگ</th>
+                                            <th>قیمت</th>
+                                            <th>تعداد</th>
+                                            <th></th>
                                         </tr>
-                                        <tr class="summary-shipping-row">
-                                            <td>
-                                                <div class="custom-control custom-radio">
-                                                    <input type="radio" id="express-shipping" name="shipping"
-                                                        class="custom-control-input" disabled>
-                                                    <label class="custom-control-label" for="express-shipping">پست
-                                                        پیشتاز :</label>
-                                                </div><!-- End .custom-control -->
-                                            </td>
-                                            <td class="text-left">30,000 تومان</td>
-                                        </tr><!-- End .summary-shipping-row -->
+                                    </thead>
 
-                                        <tr class="summary-total">
-                                            <td>مبلغ قابل پرداخت :</td>
-                                            <td class="text-left cart_amount-t"></td>
-                                        </tr><!-- End .summary-total -->
+                                    <tbody class="cart__items">
+
                                     </tbody>
-                                </table><!-- End .table table-summary -->
+                                </table><!-- End .table table-wishlist -->
 
-                                <a href="/auth/payment" class="btn btn-outline-primary-2 btn-order btn-block" id="payment">رفتن
-                                    به صفحه پرداخت</a>
-                            </div><!-- End .summary -->
-                        </aside><!-- End .col-lg-3 -->
-                    </div><!-- End .row -->
+                                <div class="cart-bottom">
+                                    <div class="cart-discount">
+                                        <div action="#">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" required placeholder="کد تخفیف"
+                                                    id="discountInput">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-primary-2" id="discountBtn"><i
+                                                            class="icon-long-arrow-left"></i></button>
+                                                </div><!-- .End .input-group-append -->
+                                            </div><!-- End .input-group -->
+                                        </div>
+                                    </div><!-- End .cart-discount -->
+                                </div><!-- End .cart-bottom -->
+                            </div><!-- End .col-lg-9 -->
+                            <aside class="col-lg-3">
+                                <div class="summary summary-cart">
+                                    <table class="table table-summary">
+                                        <tbody>
+                                            <tr class="summary-subtotal">
+                                                <td>جمع کل سبد خرید : </td>
+                                                <td class="cart_amount"></td>
+                                            </tr><!-- End .summary-subtotal -->
+                                            <tr class="summary-shipping">
+                                                <td>شیوه ارسال : </td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                            <tr class="summary-shipping-row">
+                                                <td>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" id="express-shipping" name="shipping"
+                                                            class="custom-control-input" disabled>
+                                                        <label class="custom-control-label" for="express-shipping">پست
+                                                            پیشتاز :</label>
+                                                    </div><!-- End .custom-control -->
+                                                </td>
+                                                <td class="text-left">30,000 تومان</td>
+                                            </tr><!-- End .summary-shipping-row -->
+
+                                            <tr class="summary-total">
+                                                <td>مبلغ قابل پرداخت :</td>
+                                                <td class="text-left cart_amount-t"></td>
+                                            </tr><!-- End .summary-total -->
+                                        </tbody>
+                                    </table><!-- End .table table-summary -->
+
+                                    <a href="/auth/payment" class="btn btn-outline-primary-2 btn-order btn-block"
+                                        id="payment">رفتن
+                                        به صفحه پرداخت</a>
+                                </div><!-- End .summary -->
+                            </aside><!-- End .col-lg-3 -->
+                        </div><!-- End .row -->
                 </div><!-- End .container -->
             </div><!-- End .cart -->
         </div><!-- End .page-content -->

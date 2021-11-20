@@ -63,6 +63,12 @@
                                         )</a>
                             </div><!-- End .rating-container -->
 
+                            <div class="product-price text-center">
+                                قیمت اصلی : <del>
+                                    <%= separate(product.price) %>
+                                </del>
+                            </div><!-- End .product-price -->
+
                             <div class="product-price text-center" id="priceTag">
                                 <%= separate(product.price) %>
                             </div><!-- End .product-price -->
@@ -82,13 +88,8 @@
                                         </a>
                                         <input type="hidden" value="<%- attr._id %>" id="attr__id">
                                         <input type="hidden" value="<%- attr.color %>" id="attr__color">
-                                        <% if(attr.discount==="on" ){%>
-                                            <br />
-                                            <div class="">
-                                                <p style="color: <%= attr.color %>; ">این رنگ محصول تخفیف دارد</p>
-                                            </div>
-                                            <%}%>
-                                                <%}%>
+
+                                        <%}%>
                                 </div><!-- End .product-nav -->
                             </div><!-- End .details-filter-row -->
 

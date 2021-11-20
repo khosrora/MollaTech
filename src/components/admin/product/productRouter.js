@@ -6,6 +6,7 @@ const productController = require('./productController');
 
 // ! middleware
 const { uploadMultiple } = require('../../../middleware/multerMultiple');
+const { upload } = require('../../../middleware/multerSingle');
 
 // ? dec ==>get create product page
 // ? path ==> /admin/createProduct
@@ -41,7 +42,7 @@ router.get("/createAtrr/:id", productController.getCreateAtrribute);
 
 // ? dec ==> create product attribute
 // ? path ==> /admin/createAtrr
-router.post("/createAtrr", productController.createAtrribute);
+router.post("/createAtrr", upload.single('image'), productController.createAtrribute);
 
 // ? dec ==> edit product attribute
 // ? path ==> /admin/editAtrr

@@ -219,13 +219,15 @@ exports.editProduct = async (req, res) => {
 exports.getCreateAtrribute = async (req, res) => {
     try {
 
-        const id = req.params.id;
+        // ! get product 
+        const product = await Product.findOne({ _id: req.params.id })
+
 
         res.render("admin/product/createAttribute", {
             layout: "./layouts/adminLayout",
             title: "ساخت ویژگی محصول ",
             bread: "ساخت ویژگی محصول",
-            id,
+            product,
             message: req.flash("success_msg"),
             error: req.flash("error"),
         })
@@ -239,7 +241,7 @@ exports.getCreateAtrribute = async (req, res) => {
 exports.createAtrribute = async (req, res) => {
     try {
         // ! get items
-        const { price, color, id, offerPrice, discount } = req.body;
+        const { price, color, id, discountSpecial, offerPrice, discount } = req.body;
         // ! validate price && color
         if (!price || !color) {
             req.flash("error", "لطفا رنگ و قیمت را وارد کنید");
@@ -247,9 +249,15 @@ exports.createAtrribute = async (req, res) => {
             return res.redirect(backUrl);
         }
         // ! create attr product
-        await Attribute.create({
-            ...req.body, product: id
-        })
+        if (req.file) {
+            await Attribute.create({
+                ...req.body, product: id, image: req.file.filename, slug: slug(req.body.title)
+            })
+        } else {
+            await Attribute.create({
+                ...req.body, product: id, slug: slug(req.body.title)
+            })
+        }
         // ! send message
         req.flash("success_msg", "ویژگی جدید اضافه شد");
         res.redirect("/admin/singleProduct/" + id)
@@ -288,7 +296,19 @@ exports.getEditAttribute = async (req, res) => {
 exports.editAttribute = async (req, res) => {
     try {
         // ! get items 
-        const { id, price, offerPrice, count, color } = req.body;
+        const { id, price, offerPrice, count, color, discount, discountSpecial, timeDiscount } = req.body;
+        var discountPrice;
+        if (discount) {
+            discountPrice = discount;
+        } else {
+            discountPrice = "off";
+        }
+        var specialDiscountPrice;
+        if (discountSpecial) {
+            specialDiscountPrice = discountSpecial;
+        } else {
+            specialDiscountPrice = "off"
+        }
         // ! validation
         if (!id || !price || !count || !color) {
             req.flash("error", "لطفا تمام مقادیر را کامل کنید")
@@ -297,7 +317,7 @@ exports.editAttribute = async (req, res) => {
         }
         // !find attr
         await Attribute.findByIdAndUpdate({ _id: id }, {
-            price, offerPrice, count, color
+            price, offerPrice, count, color, discount: discountPrice, discountSpecial: specialDiscountPrice, timeDiscount
         });
         // ! send message
         req.flash("success_msg", "اطلاعات با موفقیت ویرایش شد");

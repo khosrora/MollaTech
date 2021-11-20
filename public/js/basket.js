@@ -5,6 +5,16 @@ const totalCount = document.querySelectorAll(".cart_quantity");
 const totalPrice = document.querySelectorAll(".price");
 
 
+const discountInput = document.getElementById("discountInput");
+const discountBtn = document.getElementById("discountBtn");
+
+if (discountBtn) {
+    discountBtn.addEventListener("click", e => {
+        e.preventDefault();
+        document.cookie = `discount__Molla = ${discountInput.value};`
+    })
+}
+
 let cartItems = (JSON.parse(localStorage.getItem("cart___items")) || []);
 document.addEventListener("DOMContentLoaded", loadData)
 

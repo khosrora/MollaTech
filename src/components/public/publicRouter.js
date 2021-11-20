@@ -84,6 +84,10 @@ router.get("/product/:slug", auth, publicController.getProduct)
 // ? path ==> /basket
 router.get("/basket", auth, publicController.getBasket)
 
+// ? dec ==> get all TimeDiscounts
+// ? path ==> /TimeDiscount
+router.get("/TimeDiscount", auth, publicController.getTimeDiscount)
+
 
 
 
