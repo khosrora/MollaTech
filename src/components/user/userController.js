@@ -3,9 +3,8 @@ const passport = require('passport');
 
 const User = require('./model/userModel');
 const Cart = require('./model/cartModel');
-const Product = require('../admin/product/model/Product');
-const Attribute = require('../admin/product/model/attribute');
 const Category = require('../admin/categories/model/categories');
+const Discount = require('../admin/product/model/discount');
 const Comment = require('./model/comment');
 
 
@@ -366,24 +365,55 @@ exports.payment = async (req, res) => {
         }
         //! Get a cookies
         var cartItems = JSON.parse(req.cookies.cart__Molla);
+        var discount = req.cookies.discount__Molla;
         // ! validation
         if (cartItems.length === 0) {
             req.flash("error", "حداقل یک محصول را در سبد خرید قرار دهید");
             return res.redirect("/basket")
         }
+
         let totalCarts = 0;
         let productId = [];
-        cartItems.forEach(async i => {
-            var totalItemCarts = i.price * i.quantity;
-            totalCarts += totalItemCarts++;
-            productId.push({
-                count: i.quantity,
-                color: i.color,
-                price: i.price,
-                image: i.image,
-                attribute: i.id
+        // ! discount
+        if (discount) {
+            const disCountUser = await Discount.findOne({ name: discount });
+            if (!disCountUser) {
+                req.flash("error", "کد تخفیف شما اشتباه است یا مدت تخفیف تمام شده است");
+                res.clearCookie("discount__Molla")
+                return res.redirect("/basket");
+            }
+            if (disCountUser.isActive) {
+                let calcDiscount = 0;
+                cartItems.forEach(async i => {
+                    var totalItemCarts = i.price * i.quantity;
+                    calcDiscount = totalItemCarts++ * disCountUser.amount++ / 100;
+                    totalCarts += totalItemCarts++ - calcDiscount;
+                    productId.push({
+                        count: i.quantity,
+                        color: i.color,
+                        price: i.price,
+                        image: i.image,
+                        attribute: i.id
+                    })
+                })
+            } else {
+                req.flash("error", "کد تخفیف در حال حاضر فعال نیست");
+                res.clearCookie("discount__Molla")
+                return res.redirect("/basket");
+            }
+        } else {
+            cartItems.forEach(async i => {
+                var totalItemCarts = i.price * i.quantity;
+                totalCarts += totalItemCarts++;
+                productId.push({
+                    count: i.quantity,
+                    color: i.color,
+                    price: i.price,
+                    image: i.image,
+                    attribute: i.id
+                })
             })
-        })
+        }
         const cart = await Cart.create({
             user: req.user._id,
             products: productId,
@@ -432,9 +462,11 @@ exports.verifyPayment = async (req, res) => {
             res.clearCookie("cart___items");
             // ! send message
             req.flash("success_msg", "سفارش شما با موفقیت ثبت شد")
+            res.clearCookie("discount__Molla")
             res.redirect("/auth/dashboard");
         } else {
             req.flash("error", "متاسفانه عملیات پرداخت با شکست مواجه شد");
+            res.clearCookie("discount__Molla")
             res.redirect("/basket")
         }
     } catch (err) {

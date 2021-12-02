@@ -412,3 +412,30 @@ exports.createDiscount = async (req, res) => {
         return res.redirect("/admin/createDiscount")
     }
 }
+
+// ? dec ==> get all discount
+// ? path ==> /admin/getAllDiscount
+exports.isActiveDiscount = async (req, res) => {
+    try {
+
+        // ! find discount
+        const discount = await Discount.findOne({ _id: req.params.id });
+        if (discount.isActive) {
+            discount.isActive = false;
+            await discount.save();
+            req.flash("success_msg", "تخفیف با موفقیت غیر فعال  شد");
+            return res.redirect("/admin/getAllDiscount")
+        } else {
+            discount.isActive = true;
+            await discount.save();
+            req.flash("success_msg", "تخفیف با موفقیت فعال  شد");
+            return res.redirect("/admin/getAllDiscount")
+        }
+
+
+
+    } catch (err) {
+        console.log(err.message);
+        return res.redirect("/admin/getAllDiscount")
+    }
+}

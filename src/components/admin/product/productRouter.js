@@ -68,6 +68,10 @@ router.get("/createDiscount", productController.getCreateDiscount);
 // ? path ==> /admin/createDiscount
 router.post("/createDiscount", productController.createDiscount);
 
+// ? dec ==> is Active Discount
+// ? path ==> /admin/isActiveDiscount/:id
+router.get("/isActiveDiscount/:id", productController.isActiveDiscount);
+
 
 
 

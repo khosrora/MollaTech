@@ -7,11 +7,13 @@ const totalPrice = document.querySelectorAll(".price");
 
 const discountInput = document.getElementById("discountInput");
 const discountBtn = document.getElementById("discountBtn");
+const discountText = document.getElementById("discountText");
 
 if (discountBtn) {
     discountBtn.addEventListener("click", e => {
         e.preventDefault();
         document.cookie = `discount__Molla = ${discountInput.value};`
+        discountText.innerText = "کد تخفیف شما ثبت شد."
     })
 }
 
